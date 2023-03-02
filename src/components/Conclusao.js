@@ -9,7 +9,7 @@ export default function Conclusao(){
 }
 
 const BarraBaixo = styled.div`
-    width: 100%;
+    width: 375px;
     height: 70px;        
     background: #FFFFFF;
     box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
@@ -17,6 +17,9 @@ const BarraBaixo = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    left: 0;
+    bottom:0;
 `
 
 const Concluidos = styled.h2`

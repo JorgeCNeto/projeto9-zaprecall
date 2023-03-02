@@ -29,6 +29,6 @@ const Titulo = styled.h1`
     font-size: 36px;
     line-height: 45px;    
     letter-spacing: -0.012em;
-    color: black; // #FFFFFF;
+    color: #FFFFFF;
     transform: rotate(0.58deg);
 `

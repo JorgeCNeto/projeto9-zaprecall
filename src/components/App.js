@@ -4,10 +4,18 @@ import Conclusao from "./Conclusao";
 
 
 export default function App() {
+  
+  function revelarPergunta(p){
+    console.log(p)
+  }
+ 
+ 
+ 
+ 
   return (
     <div>
     <Topo />
-    <Perguntas />
+    <Perguntas revelarPergunta={revelarPergunta}/>
     <Conclusao />
     </div>
   );
