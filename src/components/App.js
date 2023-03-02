@@ -1,21 +1,16 @@
 import Topo from "./Topo";
 import Perguntas from "./Perguntas";
 import Conclusao from "./Conclusao";
+import { useState } from "react";
+
 
 
 export default function App() {
-  
-  function revelarPergunta(p){
-    console.log(p)
-  }
- 
- 
- 
  
   return (
     <div>
     <Topo />
-    <Perguntas revelarPergunta={revelarPergunta}/>
+    <Perguntas />
     <Conclusao />
     </div>
   );

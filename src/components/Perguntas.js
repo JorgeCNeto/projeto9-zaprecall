@@ -1,21 +1,32 @@
 import styled from "styled-components"
 import play from "../assets/seta_play.png"
+import numeroPerguntas from "./numeroPerguntas"
+import { useState } from "react";
 
-const numeroPerguntas = [1, 2, 3, 4, 5, 6, 7, 8]
 
-export default function Perguntas(props){
+
+export default function Perguntas(){
+    const [caixa, setCaixa] = useState("Pergunta")
+  
+    function revelarPergunta(){
+      setCaixa()
+      console.log()
+    }
+
+
     return (
         <BlocoPerguntas>
-            {numeroPerguntas.map((pergunta) => <Pergunta num={pergunta} revelarPergunta={props.revelarPergunta}/>)}    
+            {numeroPerguntas.map((texto) => <Pergunta revelarPergunta={revelarPergunta} texto={`Pergunta ${texto + 1}`}/>)}    
         </BlocoPerguntas>
     )
 }
 
-function Pergunta ({num, revelarPergunta}) {
-      
+function Pergunta ({revelarPergunta, texto}) {
+        
+    
     return (
         <CaixaPergunta>
-            <TextoPergunta>Pergunta {num}</TextoPergunta>
+            <TextoPergunta>{texto}</TextoPergunta>
             <ImagemPergunta src={play} onClick={(event) => revelarPergunta(event)}/>
         </CaixaPergunta>
     )

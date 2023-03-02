@@ -17,7 +17,7 @@ const BarraBaixo = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: fixed;
+    position: sticky;
     left: 0;
     bottom:0;
 `
