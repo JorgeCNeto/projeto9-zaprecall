@@ -26,7 +26,7 @@ function Pergunta ({revelarPergunta, questaoTexto, answerTexto, index}) {
     const [fimTexto, setFimTexto] = useState ("none")
     const [fimCor,setFimCor] = useState("#333333")
     const [fimIcone, setFimIcone] = useState("")
-    // const [fimIconeDisplay, setFimIconeDisplay] = useState("none")
+    const [fimIconeDisplay, setFimIconeDisplay] = useState("none")
      
  
 
@@ -52,6 +52,7 @@ function Pergunta ({revelarPergunta, questaoTexto, answerTexto, index}) {
         setFimTexto("line-through")
         setFimCor("#FF3030")
         setFimIcone(errado)
+        setFimIconeDisplay("block")
     }
 
     function quaseDeu (){
@@ -63,17 +64,19 @@ function Pergunta ({revelarPergunta, questaoTexto, answerTexto, index}) {
         setFimTexto("line-through")
         setFimCor("#FF922E")
         setFimIcone(quase)
+        setFimIconeDisplay("block")
     }
 
     function deuBom (){
         console.log("funcionou verde")
-        // setQuestao(false)
-        // setAnswer(false)
-        // setCorPadrao("#FFFFFF")
-        // setBotoesResposta(false) 
-        // setFimTexto("line-through")
-        // setFimCor("#2FBE34")
-        // setFimIcone(certo)
+        setQuestao(false)
+        setAnswer(false)
+        setCorPadrao("#FFFFFF")
+        setBotoesResposta(false) 
+        setFimTexto("line-through")
+        setFimCor("#2FBE34")
+        setFimIcone(certo)
+        setFimIconeDisplay("block")
     }
    
            
@@ -81,14 +84,14 @@ function Pergunta ({revelarPergunta, questaoTexto, answerTexto, index}) {
         <CaixaPergunta key={index} cor={corPadrao} flip={flip} data-test="flashcard">
             <AjusteTexto>
                 <TextoPergunta fimCor={fimCor} fimTexto={fimTexto} data-test="flashcard-text">{questao ?(answer ? answerTexto : questaoTexto) : `Pergunta ${index + 1}` }</TextoPergunta> 
-                <ImagemFinal src={fimIcone} />
+                <ImagemFinal src={fimIcone} fimIconeDisplay={fimIconeDisplay} />
             </AjusteTexto>
             <AjusteImagem botoesResposta={botoesResposta}>                             
                 <ImagemPergunta botoesResposta={botoesResposta} src={botao} onClick={(event) => revelarPergunta(event)} data-test="play-btn"/>     
 
-                <NaoLembrei botoesResposta={botoesResposta} onCLick={(event) => deuRuim(event)}>Não lembrei</NaoLembrei>      
-                <QuaseNaoLembrei botoesResposta={botoesResposta} onCLick={(event) => quaseDeu(event)}>Quase não lembrei</QuaseNaoLembrei>   
-                <Zap botoesResposta={botoesResposta} onCLick={(event) => deuBom(event)}>Zap!</Zap>            
+                <NaoLembrei botoesResposta={botoesResposta} onClick={(event) => deuRuim(event)}>Não lembrei</NaoLembrei>      
+                <QuaseNaoLembrei botoesResposta={botoesResposta} onClick={(event) => quaseDeu(event)}>Quase não lembrei</QuaseNaoLembrei>   
+                <Zap botoesResposta={botoesResposta} onClick={(event) => deuBom(event)}>Zap!</Zap>            
             </AjusteImagem>
         </CaixaPergunta>
     )
@@ -111,7 +114,10 @@ const TextoPergunta = styled.p`
 `
 
 const ImagemFinal = styled.img`
-
+    width: 23px;
+    height: 23px;
+    margin-top: 23px;
+    display: ${(props) => props.fimIconeDisplay};
 `
 
 const ImagemPergunta = styled.img`
