@@ -19,9 +19,14 @@ function Pergunta ({revelarPergunta, questaoTexto, answerTexto, index}) {
     const [corPadrao, setCorPadrao] = useState("#FFFFFF")
     const [botao, setBotao] = useState(play)
     const [flip, setFlip] = useState(false)
+    const [botoesResposta, setBotoesResposta] = useState(false)
      
  
-    
+    useEffect(() => {
+        
+        console.log(botoesResposta)
+
+    })
 
     function revelarPergunta(){
       if (questao === false){
@@ -31,22 +36,31 @@ function Pergunta ({revelarPergunta, questaoTexto, answerTexto, index}) {
         setFlip(true)
         
       } else{
-        setAnswer(true)         
+        setAnswer(true)     
+        setBotoesResposta(true)    
       }    
     }
-    
-       
+   
+           
     return (
-        <CaixaPergunta key={index} cor={corPadrao} flip={flip}>
+        <CaixaPergunta key={index} cor={corPadrao} flip={flip} >
             <AjusteTexto>
                 <TextoPergunta >{questao ?(answer ? answerTexto : questaoTexto) : `Pergunta ${index + 1}`}</TextoPergunta> 
             </AjusteTexto>
-            <AjusteImagem>                
-                <ImagemPergunta src={botao} onClick={(event) => revelarPergunta(event)} />                 
+            <AjusteImagem botoesResposta={botoesResposta}>                             
+                <ImagemPergunta botoesResposta={botoesResposta} src={botao} onClick={(event) => revelarPergunta(event)} />     
+
+                <NaoLembrei botoesResposta={botoesResposta} onCLick>Não lembrei</NaoLembrei>      
+                <QuaseNaoLembrei botoesResposta={botoesResposta}>Quase não lembrei</QuaseNaoLembrei>   
+                <Zap botoesResposta={botoesResposta}>Zap!</Zap>              
             </AjusteImagem>
         </CaixaPergunta>
     )
 }
+
+
+////////////////////////////////////////// fim do código e início do CSS
+
 
 const TextoPergunta = styled.p`
     font-family: 'Recursive';
@@ -56,6 +70,7 @@ const TextoPergunta = styled.p`
     line-height: 19px;
     color: #333333;
     margin: 23px auto 23px 20px;
+   
 `
 
 const ImagemPergunta = styled.img`
@@ -63,6 +78,7 @@ const ImagemPergunta = styled.img`
     height: 23px;
     background: #FFFFFF;
     margin-right: 20px;
+    display: ${(props) => props.botoesResposta ? "none" : "inline"};
 `
 
 const CaixaPergunta = styled.div`
@@ -95,6 +111,51 @@ const AjusteTexto = styled.div`
 const AjusteImagem = styled.div`
     width: 300px;
     display: flex;
-    justify-content: end;
+    justify-content: ${(props) => props.botoesResposta ? "space-evenly" : "end"};
     margin-bottom: 6px;
+`
+
+const NaoLembrei = styled.button`
+    display: ${(props) => props.botoesResposta ? "block" : "none"} !important;
+    width: 85px;
+    height: 37px;
+    background: #FF3030;
+    border-radius: 5px;
+    font-family: 'Recursive';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;    
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+`
+const QuaseNaoLembrei = styled.button`
+    display: ${(props) => props.botoesResposta ? "block" : "none"} !important;
+    width: 85px;
+    height: 37px;
+    background: #FF922E;
+    border-radius: 5px;
+    font-family: 'Recursive';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+`
+
+
+const Zap = styled.button`
+    display: ${(props) => props.botoesResposta ? "block" : "none"} !important;
+    width: 85px;
+    height: 37px;
+    background: #2FBE34;
+    border-radius: 5px;
+    font-family: 'Recursive';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
 `
