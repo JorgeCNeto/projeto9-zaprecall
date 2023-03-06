@@ -2,7 +2,10 @@ import styled from "styled-components"
 import play from "../assets/seta_play.png"
 import vizualizar from "../assets/seta_virar.png"
 import cards from "./cards"
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import errado from "../assets/icone_erro.png"
+import quase from "../assets/icone_quase.png"
+import certo from "../assets/icone_certo.png"
 
 
 export default function Perguntas(){
@@ -20,13 +23,12 @@ function Pergunta ({revelarPergunta, questaoTexto, answerTexto, index}) {
     const [botao, setBotao] = useState(play)
     const [flip, setFlip] = useState(false)
     const [botoesResposta, setBotoesResposta] = useState(false)
+    const [fimTexto, setFimTexto] = useState ("none")
+    const [fimCor,setFimCor] = useState("#333333")
+    const [fimIcone, setFimIcone] = useState("")
+    // const [fimIconeDisplay, setFimIconeDisplay] = useState("none")
      
  
-    useEffect(() => {
-        
-        console.log(botoesResposta)
-
-    })
 
     function revelarPergunta(){
       if (questao === false){
@@ -40,19 +42,53 @@ function Pergunta ({revelarPergunta, questaoTexto, answerTexto, index}) {
         setBotoesResposta(true)    
       }    
     }
+
+    function deuRuim (){
+        console.log("funcionou vermelho")
+        setQuestao(false)
+        setAnswer(false)
+        setCorPadrao("#FFFFFF")
+        setBotoesResposta(false) 
+        setFimTexto("line-through")
+        setFimCor("#FF3030")
+        setFimIcone(errado)
+    }
+
+    function quaseDeu (){
+        console.log("funcionou amarelo")
+        setQuestao(false)
+        setAnswer(false)
+        setCorPadrao("#FFFFFF")
+        setBotoesResposta(false) 
+        setFimTexto("line-through")
+        setFimCor("#FF922E")
+        setFimIcone(quase)
+    }
+
+    function deuBom (){
+        console.log("funcionou verde")
+        setQuestao(false)
+        setAnswer(false)
+        setCorPadrao("#FFFFFF")
+        setBotoesResposta(false) 
+        setFimTexto("line-through")
+        setFimCor("#2FBE34")
+        setFimIcone(certo)
+    }
    
            
     return (
         <CaixaPergunta key={index} cor={corPadrao} flip={flip} >
             <AjusteTexto>
-                <TextoPergunta >{questao ?(answer ? answerTexto : questaoTexto) : `Pergunta ${index + 1}`}</TextoPergunta> 
+                <TextoPergunta fimCor={fimCor} fimTexto={fimTexto}>{questao ?(answer ? answerTexto : questaoTexto) : `Pergunta ${index + 1}`}</TextoPergunta> 
+                <ImagemFinal src={fimIcone} />
             </AjusteTexto>
             <AjusteImagem botoesResposta={botoesResposta}>                             
                 <ImagemPergunta botoesResposta={botoesResposta} src={botao} onClick={(event) => revelarPergunta(event)} />     
 
-                <NaoLembrei botoesResposta={botoesResposta} onCLick>Não lembrei</NaoLembrei>      
-                <QuaseNaoLembrei botoesResposta={botoesResposta}>Quase não lembrei</QuaseNaoLembrei>   
-                <Zap botoesResposta={botoesResposta}>Zap!</Zap>              
+                <NaoLembrei botoesResposta={botoesResposta} onCLick={(event) => deuRuim(event)}>Não lembrei</NaoLembrei>      
+                <QuaseNaoLembrei botoesResposta={botoesResposta} onCLick={(event) => quaseDeu(event)}>Quase não lembrei</QuaseNaoLembrei>   
+                <Zap botoesResposta={botoesResposta} onCLick={(event) => deuBom(event)}>Zap!</Zap>            
             </AjusteImagem>
         </CaixaPergunta>
     )
@@ -68,9 +104,14 @@ const TextoPergunta = styled.p`
     font-weight: 700;
     font-size: 16px;
     line-height: 19px;
-    color: #333333;
+    color: ${(props) => props.fimCor};
+    text-decoration: ${(props) => props.fimTexto};
     margin: 23px auto 23px 20px;
    
+`
+
+const ImagemFinal = styled.img`
+
 `
 
 const ImagemPergunta = styled.img`
