@@ -27,7 +27,7 @@ function Pergunta ({revelarPergunta, questaoTexto, answerTexto, index}) {
     const [fimCor,setFimCor] = useState("#333333")
     const [fimIcone, setFimIcone] = useState("")
     const [fimIconeDisplay, setFimIconeDisplay] = useState("none")
-     
+    const [fimBotao, setFimBotao] = useState(false)
  
 
     function revelarPergunta(){
@@ -44,7 +44,6 @@ function Pergunta ({revelarPergunta, questaoTexto, answerTexto, index}) {
     }
 
     function deuRuim (){
-        console.log("funcionou vermelho")
         setQuestao(false)
         setAnswer(false)
         setCorPadrao("#FFFFFF")
@@ -53,10 +52,10 @@ function Pergunta ({revelarPergunta, questaoTexto, answerTexto, index}) {
         setFimCor("#FF3030")
         setFimIcone(errado)
         setFimIconeDisplay("block")
+        setFimBotao(true)
     }
 
     function quaseDeu (){
-        console.log("funcionou amarelo")
         setQuestao(false)
         setAnswer(false)
         setCorPadrao("#FFFFFF")
@@ -65,18 +64,19 @@ function Pergunta ({revelarPergunta, questaoTexto, answerTexto, index}) {
         setFimCor("#FF922E")
         setFimIcone(quase)
         setFimIconeDisplay("block")
+        setFimBotao(true)
     }
 
-    function deuBom (){
-        console.log("funcionou verde")
+    function deuBom (){        
         setQuestao(false)
-        setAnswer(false)
+        setAnswer(true)
         setCorPadrao("#FFFFFF")
         setBotoesResposta(false) 
         setFimTexto("line-through")
         setFimCor("#2FBE34")
         setFimIcone(certo)
         setFimIconeDisplay("block")
+        setFimBotao(true)
     }
    
            
@@ -87,7 +87,7 @@ function Pergunta ({revelarPergunta, questaoTexto, answerTexto, index}) {
                 <ImagemFinal src={fimIcone} fimIconeDisplay={fimIconeDisplay} />
             </AjusteTexto>
             <AjusteImagem botoesResposta={botoesResposta}>                             
-                <ImagemPergunta botoesResposta={botoesResposta} src={botao} onClick={(event) => revelarPergunta(event)} data-test="play-btn"/>     
+                <ImagemPergunta botoesResposta={botoesResposta} fimBotao={fimBotao} src={botao} onClick={(event) => revelarPergunta(event)} data-test="play-btn"/>     
 
                 <NaoLembrei botoesResposta={botoesResposta} onClick={(event) => deuRuim(event)}>Não lembrei</NaoLembrei>      
                 <QuaseNaoLembrei botoesResposta={botoesResposta} onClick={(event) => quaseDeu(event)}>Quase não lembrei</QuaseNaoLembrei>   
@@ -125,7 +125,7 @@ const ImagemPergunta = styled.img`
     height: 23px;
     background: #FFFFFF;
     margin-right: 20px;
-    display: ${(props) => props.botoesResposta ? "none" : "inline"};
+    display: ${(props) => props.botoesResposta ? "none" : (props.fimBotao ? "none" : "inline")};
 `
 
 const CaixaPergunta = styled.div`
@@ -163,7 +163,7 @@ const AjusteImagem = styled.div`
 `
 
 const NaoLembrei = styled.button`
-    display: ${(props) => props.botoesResposta ? "block" : "none"} !important;
+    display: ${(props) => props.botoesResposta ? (props.fimBotao ? "none" : "inline") : "none"} !important;
     width: 85px;
     height: 37px;
     background: #FF3030;
@@ -177,7 +177,7 @@ const NaoLembrei = styled.button`
     color: #FFFFFF;
 `
 const QuaseNaoLembrei = styled.button`
-    display: ${(props) => props.botoesResposta ? "block" : "none"} !important;
+    display: ${(props) => props.botoesResposta ? (props.fimBotao ? "none" : "inline") : "none"} !important;
     width: 85px;
     height: 37px;
     background: #FF922E;
@@ -193,7 +193,7 @@ const QuaseNaoLembrei = styled.button`
 
 
 const Zap = styled.button`
-    display: ${(props) => props.botoesResposta ? "block" : "none"} !important;
+    display: ${(props) => props.botoesResposta ? (props.fimBotao ? "none" : "inline") : "none"} !important;
     width: 85px;
     height: 37px;
     background: #2FBE34;
