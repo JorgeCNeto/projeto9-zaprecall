@@ -67,24 +67,24 @@ function Pergunta ({revelarPergunta, questaoTexto, answerTexto, index}) {
 
     function deuBom (){
         console.log("funcionou verde")
-        setQuestao(false)
-        setAnswer(false)
-        setCorPadrao("#FFFFFF")
-        setBotoesResposta(false) 
-        setFimTexto("line-through")
-        setFimCor("#2FBE34")
-        setFimIcone(certo)
+        // setQuestao(false)
+        // setAnswer(false)
+        // setCorPadrao("#FFFFFF")
+        // setBotoesResposta(false) 
+        // setFimTexto("line-through")
+        // setFimCor("#2FBE34")
+        // setFimIcone(certo)
     }
    
            
     return (
-        <CaixaPergunta key={index} cor={corPadrao} flip={flip} >
+        <CaixaPergunta key={index} cor={corPadrao} flip={flip} data-test="flashcard">
             <AjusteTexto>
-                <TextoPergunta fimCor={fimCor} fimTexto={fimTexto}>{questao ?(answer ? answerTexto : questaoTexto) : `Pergunta ${index + 1}`}</TextoPergunta> 
+                <TextoPergunta fimCor={fimCor} fimTexto={fimTexto} data-test="flashcard-text">{questao ?(answer ? answerTexto : questaoTexto) : `Pergunta ${index + 1}` }</TextoPergunta> 
                 <ImagemFinal src={fimIcone} />
             </AjusteTexto>
             <AjusteImagem botoesResposta={botoesResposta}>                             
-                <ImagemPergunta botoesResposta={botoesResposta} src={botao} onClick={(event) => revelarPergunta(event)} />     
+                <ImagemPergunta botoesResposta={botoesResposta} src={botao} onClick={(event) => revelarPergunta(event)} data-test="play-btn"/>     
 
                 <NaoLembrei botoesResposta={botoesResposta} onCLick={(event) => deuRuim(event)}>Não lembrei</NaoLembrei>      
                 <QuaseNaoLembrei botoesResposta={botoesResposta} onCLick={(event) => quaseDeu(event)}>Quase não lembrei</QuaseNaoLembrei>   

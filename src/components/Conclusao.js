@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 export default function Conclusao(){
     return (
-        <BarraBaixo>
+        <BarraBaixo data-test="footer">
             <Concluidos>0/8 CONCLUÍDOS</Concluidos>
         </BarraBaixo>
     )
